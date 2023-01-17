@@ -9,6 +9,8 @@ export const CLIENT_ID = '';
 export const CLIENT_SECRET = '';
 ```
 
+`/src/environments/credentials.ts` is included in the `.gitignore` to ensure credentials aren't pushed to the repository.
+
 ## App structure
 This is a very basic Angular application, with no routing. Once you've added the Spotify API credentials, starting the app should load and display a playlist. 
 
