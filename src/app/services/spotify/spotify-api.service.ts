@@ -98,6 +98,8 @@ export class SpotifyApiService {
     }
 
     searchPlaylists(query: string, token: string): Observable<PlaylistSearchResult[]> {
+        if(!query) return new Observable<PlaylistSearchResult[]>(o => o.next([]));
+
         return this.http.get<{ playlists: { items: SpotifyPlaylist[] } }>('https://api.spotify.com/v1/search', {
             params: {
                 q: query,
@@ -106,12 +108,7 @@ export class SpotifyApiService {
             headers: {
                 'Authorization': `Bearer ${token}`,
             }
-        }).pipe(map(response => response.playlists.items.map(playlist => ({
-            id: playlist.id,
-            name: playlist.name,
-            description: playlist.name,
-            images: playlist.images,
-        }))));
+        }).pipe(map(response => response.playlists.items));
     }
 }
 

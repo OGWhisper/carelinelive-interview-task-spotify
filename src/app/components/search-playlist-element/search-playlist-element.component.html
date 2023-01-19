@@ -1,0 +1,7 @@
+<div id="wrapper" (click)="emitter.emit(data.id)">
+    <img [src]="data.images[0].url" />
+    <aside>
+        <b>{{ data.name }}</b>
+        <p *ngIf="data.owner">{{ data.owner.display_name }}</p>
+    </aside>
+</div>

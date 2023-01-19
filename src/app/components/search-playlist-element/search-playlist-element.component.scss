@@ -1,0 +1,38 @@
+#wrapper {
+    display: flex;
+    align-items: flex-start;
+    background-color: #121212;
+    padding: 4px;
+    height: 56px;
+    cursor: pointer;
+
+    transition: 0.2s ease-in-out background-color;
+
+    &:hover {
+        background-color: #161616;
+    }
+
+    img {
+        width: 48px;
+        height: 48px;
+
+        display: block;
+        vertical-align: bottom;
+    }
+
+    aside {
+        flex: auto;
+
+        padding-left: 8px;
+
+        b, p {
+            width: 100%;
+
+            display: inline-block;
+
+            white-space: nowrap;
+            overflow-x: hidden;
+            margin: 0;
+        }
+    }
+}
