@@ -13,6 +13,7 @@ export class AppComponent {
     searchValue$ = new BehaviorSubject<string>('');
     token$ = this.spotify.getToken();
     playlistID$ = new BehaviorSubject<string>('0UA4PppdcKIKojVy5iSVoD');
+    log = console.log
 
     // https://open.spotify.com/playlist/0UA4PppdcKIKojVy5iSVoD
     playlist$ = combineLatest(

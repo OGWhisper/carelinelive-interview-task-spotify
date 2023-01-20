@@ -1,3 +1,25 @@
 :host {
     display: block;
+    padding-top: 16px;
+
+    ngx-charts-polar-chart {
+        pointer-events: none;
+    }
+
+    div.graph {
+        position: relative;
+
+        h4 {
+            font-size: 20px;
+            background-color: #222;
+
+            z-index: 1000;
+
+            position: absolute;
+            top: 8px;
+            left: 8px;
+
+            border-radius: 8px;
+        }
+    }
 }

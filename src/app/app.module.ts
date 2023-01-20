@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { PlaylistAnalysisComponent } from './components/playlist-analysis/playlist-analysis.component';
 import { TrackCardComponent } from './components/track-card/track-card.component';
 import { SearchPlaylistElementComponent } from './components/search-playlist-element/search-playlist-element.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import { SearchPlaylistElementComponent } from './components/search-playlist-ele
         HttpClientModule,
         MatCardModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxChartsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
