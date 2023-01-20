@@ -1,0 +1,26 @@
+button {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 28px;
+
+    color: white;
+    background: none;
+    border: 1px #fff solid;
+    border-radius: 50px;
+
+    cursor: pointer;
+
+    // span {
+    //     margin-left: 16px;
+    // }
+
+    mat-icon {
+        margin-right: 8px;
+    }
+
+    &[state="0"] {
+        opacity: 0.2;
+    }
+}

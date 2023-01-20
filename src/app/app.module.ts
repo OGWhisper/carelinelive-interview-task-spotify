@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,13 +12,17 @@ import { PlaylistAnalysisComponent } from './components/playlist-analysis/playli
 import { TrackCardComponent } from './components/track-card/track-card.component';
 import { SearchPlaylistElementComponent } from './components/search-playlist-element/search-playlist-element.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SortButtonComponent } from './components/sort-button/sort-button.component';
+import { TrackSortingPipe } from './pipes/track-sorting.pipe';
 
 @NgModule({
     declarations: [
         AppComponent,
         TrackCardComponent,
         PlaylistAnalysisComponent,
-        SearchPlaylistElementComponent
+        SearchPlaylistElementComponent,
+        SortButtonComponent,
+        TrackSortingPipe
     ],
     imports: [
         BrowserModule,
@@ -27,7 +32,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
         MatCardModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxChartsModule
+        NgxChartsModule,
+        MatIconModule
     ],
     providers: [],
     bootstrap: [AppComponent]

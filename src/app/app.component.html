@@ -37,18 +37,39 @@
             <h2>Tracks</h2>
             <p>{{ playlist.tracks.total }} tracks</p>
         </header>
+        <section>
+            <input
+                class="track-search"
+                placeholder="Search for a track"
+                [(ngModel)]="trackFilters.search"
+            />
+            <div class="filters">
+                <span>Sort:</span>
+                <app-sort-button name='Loudness' [value]="trackFilters.sorting.loudness" (valueChange)="setFilter('loudness', $event)"></app-sort-button>
+                <app-sort-button name='Tempo' [value]="trackFilters.sorting.tempo" (valueChange)="setFilter('tempo', $event)"></app-sort-button>
+                <app-sort-button name='Duration' [value]="trackFilters.sorting.duration_ms" (valueChange)="setFilter('duration_ms', $event)"></app-sort-button>
+            </div>
+        </section>
         <table>
             <thead>
                 <tr>
                     <th class="track-index">#</th>
                     <th>Track Name</th>
                     <th>Album</th>
+                    <th class="track-tempo">BPM</th>
                     <th class="track-duration">Duration</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let track of playlist.tracks.items; let i = index">
-                    <td class="track-index">{{i + 1}}</td>
+                <tr *ngFor="let track of playlist.tracks.items | trackSorting:{
+                    search: trackFilters.search,
+                    sorting: {
+                        tempo: trackFilters.sorting.tempo,
+                        loudness: trackFilters.sorting.loudness,
+                        duration_ms: trackFilters.sorting.duration_ms
+                    }
+                }; let i = index">
+                    <td class="track-index">{{ i + 1 }}</td>
                     <td class="track-details">
                         <div class="flex-wrapper">
                             <img
@@ -67,7 +88,8 @@
                                         "
                                     >
                                         {{ artist }}
-                                        <span class="comma"
+                                        <span
+                                            class="comma"
                                             *ngIf="i < track.artists.length - 1"
                                             >,</span
                                         >
@@ -77,13 +99,17 @@
                         </div>
                     </td>
                     <td>
-                        {{track.album?.name}}
+                        {{ track.album?.name }}
+                    </td>
+                    <td class="track-tempo">
+                        {{ round(track.features?.tempo || 0) }}
                     </td>
                     <td class="track-duration">
-                        {{ track.duration_ms | date:'mm:ss'}}
+                        {{ track.duration_ms | date : "mm:ss" }}
                     </td>
                 </tr>
             </tbody>
+            <footer></footer>
         </table>
     </section>
 </main>

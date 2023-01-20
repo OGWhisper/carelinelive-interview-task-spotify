@@ -1,0 +1,5 @@
+<button [attr.state]="value" (click)="sort()">
+    <mat-icon *ngIf="value == 1"> arrow_upward </mat-icon>
+    <mat-icon *ngIf="value == -1"> arrow_downward </mat-icon>
+    <span> {{name}} </span>
+</button>

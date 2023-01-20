@@ -76,9 +76,11 @@ export class PlaylistAnalysisComponent implements OnInit {
 
 
         for(let track of this._playlist.tracks.items) {
-            const bpm = track.features?.tempo;
+            let bpm = track.features?.tempo;
 
             if(!bpm) continue;
+
+            bpm = Math.round(bpm);
 
             if(!this.tempoDistribution[bpm]) this.tempoDistribution[bpm] = 0;
 
