@@ -1,3 +1,6 @@
+![image](https://user-images.githubusercontent.com/43283965/213624739-f0d06426-33f6-48c1-81b2-a5269b41b8e5.png)
+![image](https://user-images.githubusercontent.com/43283965/213624781-d340f2f6-ec52-4bd6-90ff-787e5d65ced6.png)
+
 # CareLineLive Interview Task - Spotify
 
 This repository contains a scaffolded Angular application for interacting with the Spotify API. It serves as a open-ended starting point for CareLineLive technical tests.
