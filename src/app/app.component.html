@@ -1,18 +1,23 @@
 <section class="search">
-    <input placeholder="Search for a playlist" (ngModelChange)="searchValue$.next($event.toString())" ngModel=''>
-    <section *ngIf="((search$ | async) || []).length == 0">
-        No Results
-    </section>
+    <input
+        placeholder="Search for a playlist"
+        (ngModelChange)="searchValue$.next($event.toString())"
+        ngModel=""
+    />
+    <section *ngIf="((search$ | async) || []).length == 0">No Results</section>
     <section *ngIf="search$ | async as search">
-        <app-search-playlist-element (emitter)="playlistID$.next($event.toString())" [data]="result" *ngFor="let result of search$ | async">
-
+        <app-search-playlist-element
+            (emitter)="playlistID$.next($event.toString())"
+            [data]="result"
+            *ngFor="let result of search$ | async"
+        >
         </app-search-playlist-element>
     </section>
 </section>
 <!-- Todo: Spinner -->
 <main class="playlist" *ngIf="playlist$ | async as playlist">
     <header class="playlist-header">
-        <img [src]="playlist.images[0].url" alt="">
+        <img [src]="playlist.images[0].url" alt="" />
 
         <div class="playlist-details">
             <h1>{{ playlist.name }}</h1>
@@ -21,24 +26,64 @@
         </div>
     </header>
 
-    <aside class="playlist-col">
-        <h2>Tracks</h2>
-        <p>{{ playlist.tracks.total }} tracks</p>
-
-        <div class="playlist-col-content playlist-tracks">
-            <app-track-card *ngFor="let track of playlist.tracks.items"
-                            [track]="track">
-            </app-track-card>
-        </div>
-    </aside>
-
-    <article class="playlist-col">
+    <section class="playlist-analytics">
         <h2>Some us some cool stuff!</h2>
 
-        <div class="playlist-col-content playlist-analysis">
-            <app-playlist-analysis [playlist]="playlist">
+        <app-playlist-analysis [playlist]="playlist"> </app-playlist-analysis>
+    </section>
 
-            </app-playlist-analysis>
-        </div>
-    </article>
+    <section class="playlist-tracks">
+        <header>
+            <h2>Tracks</h2>
+            <p>{{ playlist.tracks.total }} tracks</p>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th class="track-index">#</th>
+                    <th>Track Name</th>
+                    <th>Album</th>
+                    <th class="track-duration">Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let track of playlist.tracks.items; let i = index">
+                    <td class="track-index">{{i + 1}}</td>
+                    <td class="track-details">
+                        <div class="flex-wrapper">
+                            <img
+                                class="track-image"
+                                [src]="track.album.image?.url"
+                            />
+                            <aside class="track-overview">
+                                <b class="track-name">
+                                    {{ track.name }}
+                                </b>
+                                <p class="track-artist">
+                                    <span
+                                        *ngFor="
+                                            let artist of track.artists;
+                                            let i = index
+                                        "
+                                    >
+                                        {{ artist }}
+                                        <span class="comma"
+                                            *ngIf="i < track.artists.length - 1"
+                                            >,</span
+                                        >
+                                    </span>
+                                </p>
+                            </aside>
+                        </div>
+                    </td>
+                    <td>
+                        {{track.album?.name}}
+                    </td>
+                    <td class="track-duration">
+                        {{ track.duration_ms | date:'mm:ss'}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 </main>

@@ -50,18 +50,23 @@
     .playlist {
         flex: auto;
         display: grid;
-        grid-template-rows: 240px calc(100% - 240px);
-        grid-template-columns: 320px minmax(0, 1fr);
+        grid-template-rows: 240px max-content max-content;
+        grid-template-columns: 100%;
+        grid-template-areas:
+            "playlist-header"
+            "playlist-analytics"
+            "playlist-tracks";
         max-height: 100%;
-        gap: 32px;
+        gap: 16px;
         padding: 24px;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: scroll;
         background-color: #111;
 
         header.playlist-header {
             display: flex;
 
-            grid-column: 1 / 3;
+            grid-area: playlist-header;
             overflow: hidden;
             max-height: 100%;
 
@@ -91,22 +96,105 @@
             }
         }
 
-        .playlist-col {
-            display: flex;
-            flex-direction: column;
+        .playlist-analytics {
+            grid-area: playlist-analytics;
 
-            .playlist-col-content {
-                flex: 1;
-                max-height: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
-                padding: 8px;
-            }
+            padding: 16px;
+
+            background-color: #171717;
         }
 
         .playlist-tracks {
-            > app-track-card {
-                margin-bottom: 1rem;
+            grid-area: playlist-tracks;
+
+            padding: 16px;
+
+            background-color: #171717;
+
+            > header {
+                display: flex;
+                align-items: center;
+
+                h2 {
+                }
+
+                p {
+                    color: #aaa;
+                    margin-left: 8px;
+                }
+            }
+
+            > table {
+                width: 100%;
+                border-collapse: collapse; /* Optional - if you don't want to have double border where cells touch */
+
+                font-size: 14px;
+                line-height: 12px;
+
+                background-color: #121212;
+
+                th,
+                td {
+                    text-align: left;
+
+                    &.track-duration {
+                        padding-left: 16px;
+                        padding-right: 16px;
+                    }
+
+                    &.track-index {
+                        width: 36px;
+                        height: 36px;
+                        text-align: center;
+                        vertical-align: center;
+                    }
+
+                    &.track-details {
+                        img.track-image {
+                            width: 36px;
+                            height: 36px;
+                        }
+
+                        aside.track-overview {
+                            margin-left: 24px;
+                            display: flex;
+                            justify-content: space-between;
+                            flex-direction: column;
+                            height: 36px;
+
+                            p {
+                                margin: 0px;
+                                color: #aaa;
+
+                                span.comma {
+                                    margin-left: -3px;
+                                }
+                            }
+
+                            b {
+                                font-weight: 400;
+                            }
+                        }
+                    }
+                }
+
+                th {
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                }
+
+                td {
+                    padding-top: 16px;
+                }
+
+                thead {
+                    background-color: #222;
+                }
+
+                .flex-wrapper {
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
     }
