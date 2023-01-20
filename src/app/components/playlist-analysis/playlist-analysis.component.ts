@@ -17,8 +17,6 @@ export class PlaylistAnalysisComponent implements OnInit {
 
     private _playlist!: SimplePlaylist;
 
-    view: [number, number] = [400, 300];
-
     featureMetrics: Features = {
         acousticness: 0,
         danceability: 0,
@@ -27,6 +25,8 @@ export class PlaylistAnalysisComponent implements OnInit {
         liveness: 0,
         speechiness: 0,
     };
+
+    tempoDistributionStep = 5;
 
     tempoDistribution: {
         [key: number]: number
@@ -44,6 +44,24 @@ export class PlaylistAnalysisComponent implements OnInit {
             name: 'Features',
             series: dataObj
         }];
+    }
+
+    get tempoData() {
+        const max = Math.max(...(Object.keys(this.tempoDistribution) as unknown as number[]));
+
+        const dataObj: {
+                name: string;
+                value: number;
+            }[] = []
+
+        for(let i = 0; i <= max + (this.tempoDistributionStep / 2); i += this.tempoDistributionStep) {
+            dataObj.push({
+                name: i.toString(),
+                value: this.tempoDistribution[i] || 0
+            })
+        }
+
+        return dataObj;
     }
 
     get featureMetricsList() {
@@ -81,6 +99,12 @@ export class PlaylistAnalysisComponent implements OnInit {
             if(!bpm) continue;
 
             bpm = Math.round(bpm);
+
+            bpm /= this.tempoDistributionStep;
+
+            bpm = Math.round(bpm);
+
+            bpm *= this.tempoDistributionStep;
 
             if(!this.tempoDistribution[bpm]) this.tempoDistribution[bpm] = 0;
 

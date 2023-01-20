@@ -1,7 +1,7 @@
 <div class="graph">
     <h4>Features</h4>
     <ngx-charts-polar-chart
-        [view]="view"
+        [view]="[400, 300]"
         [results]="featureRadar"
         [xAxis]="true"
         [labelTrimSize]="30"
@@ -12,8 +12,7 @@
         [animations]="false"
     ></ngx-charts-polar-chart>
 </div>
-
-<ul>
-    <li>Distribution of BPM</li>
-    <li>Is this track loud or quiet?</li>
-</ul>
+<div class="graph">
+    <h4>BPM Distribution</h4>
+    <ngx-charts-bar-vertical [animations]="false" [view]="[400, 268]" [yAxisTicks]="[]" [showGridLines]="false" [results]="tempoData" [xAxis]="true" [yAxis]="true"></ngx-charts-bar-vertical>
+</div>

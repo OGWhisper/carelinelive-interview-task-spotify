@@ -7,7 +7,10 @@
     }
 
     div.graph {
+        margin-right: 16px;
         position: relative;
+        background-color: #222;
+        border-radius: 8px;
 
         h4 {
             font-size: 20px;
@@ -20,6 +23,11 @@
             left: 8px;
 
             border-radius: 8px;
+        }
+
+        ngx-charts-bar-vertical {
+            display: block;
+            margin-top: 32px;
         }
     }
 }
