@@ -15,6 +15,11 @@ interface Features extends AudioNumericalFeatures {
 export class PlaylistAnalysisComponent implements OnInit {
     line = curveLinearClosed;
 
+    tempoDataObj: {
+        name: string;
+        value: number;
+    }[] = [];
+
     private _playlist!: SimplePlaylist;
 
     featureMetrics: Features = {
@@ -26,43 +31,19 @@ export class PlaylistAnalysisComponent implements OnInit {
         speechiness: 0,
     };
 
+    featureRadarData?: {
+        name: string;
+        series: {
+            name: string;
+            value: number;
+        }[];
+    }[];
+
     tempoDistributionStep = 5;
 
     tempoDistribution: {
         [key: number]: number
     } = {};
-
-    get featureRadar() {
-        const dataArr = Object.entries(this.featureMetrics);
-
-        const dataObj = dataArr.map(([k, v]) => ({
-            name: k,
-            value: v
-        }));
-
-        return [{
-            name: 'Features',
-            series: dataObj
-        }];
-    }
-
-    get tempoData() {
-        const max = Math.max(...(Object.keys(this.tempoDistribution) as unknown as number[]));
-
-        const dataObj: {
-                name: string;
-                value: number;
-            }[] = []
-
-        for(let i = 0; i <= max + (this.tempoDistributionStep / 2); i += this.tempoDistributionStep) {
-            dataObj.push({
-                name: i.toString(),
-                value: this.tempoDistribution[i] || 0
-            })
-        }
-
-        return dataObj;
-    }
 
     get featureMetricsList() {
         return Object.entries(this.featureMetrics);
@@ -92,6 +73,17 @@ export class PlaylistAnalysisComponent implements OnInit {
             this.featureMetrics[key] /= this._playlist.tracks.total;
         }
 
+        const featureRadarDataArr = Object.entries(this.featureMetrics);
+
+        const featureRadarDataObj = featureRadarDataArr.map(([k, v]) => ({
+            name: k,
+            value: v
+        }));
+
+        this.featureRadarData = [{
+            name: 'Features',
+            series: featureRadarDataObj
+        }];
 
         for(let track of this._playlist.tracks.items) {
             let bpm = track.features?.tempo;
@@ -110,6 +102,22 @@ export class PlaylistAnalysisComponent implements OnInit {
 
             this.tempoDistribution[bpm]++;
         }
+
+        const max = Math.max(...(Object.keys(this.tempoDistribution) as unknown as number[]));
+
+        const tempoDataObj: {
+                name: string;
+                value: number;
+            }[] = []
+
+        for(let i = 0; i <= max + (this.tempoDistributionStep / 2); i += this.tempoDistributionStep) {
+            tempoDataObj.push({
+                name: i.toString(),
+                value: this.tempoDistribution[i] || 0
+            })
+        }
+
+        this.tempoDataObj = tempoDataObj;
     }
 
     get playlist(): SimplePlaylist {

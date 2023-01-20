@@ -1,8 +1,8 @@
-<div class="graph">
+<div class="graph" *ngIf="featureRadarData">
     <h4>Features</h4>
     <ngx-charts-polar-chart
         [view]="[400, 300]"
-        [results]="featureRadar"
+        [results]="featureRadarData"
         [xAxis]="true"
         [labelTrimSize]="30"
         [curve]="line"
@@ -12,7 +12,15 @@
         [animations]="false"
     ></ngx-charts-polar-chart>
 </div>
-<div class="graph">
+<div class="graph" *ngIf="tempoDataObj">
     <h4>BPM Distribution</h4>
-    <ngx-charts-bar-vertical [animations]="false" [view]="[400, 268]" [yAxisTicks]="[]" [showGridLines]="false" [results]="tempoData" [xAxis]="true" [yAxis]="true"></ngx-charts-bar-vertical>
+    <ngx-charts-bar-vertical
+        [animations]="false"
+        [view]="[400, 268]"
+        [yAxisTicks]="[]"
+        [showGridLines]="false"
+        [results]="tempoDataObj"
+        [xAxis]="true"
+        [yAxis]="true"
+    ></ngx-charts-bar-vertical>
 </div>
